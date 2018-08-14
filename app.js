@@ -2,22 +2,18 @@
 
 var product1, product2, product3;
 var clicks = 0;
+var priorImgsShown = [];
 
 // constructor for Product
 function Product(name, filename) {
   this.name = name;
   this.filename = filename;
   this.votes = 0;
-  this.viewed = 0;
+  this.shown = 0;
   Product.allProduct.push(this);
 }
 Product.allProduct = [];
-
-
-//not sure what this code does
-//product[numProductDisplayed-numProductDisplayed] = new Product('img/bathroom.jpg');
-//product[numProductDisplayed-2] = new Product('img/boots.jpg');
-//product[numProductDisplayed-1] = new Product('img/bubblegum.jpg');
+Product.totalVotes = 0;
 
 new Product('meatball bubblegum','img/bubblegum.jpg');
 new Product('not rain boots','img/boots.jpg');
@@ -40,30 +36,55 @@ new Product('tentacle usb','img/usb.gif');
 new Product('regenerating watering can','img/water-can.jpg');
 new Product('undrinkable wine glass','img/wine-glass.jpg');
 
+
 //display three random images
-function displayThreeNewProduct() {
+function displayNewProducts() {
+  console.log('votes',Product.totalVotes);
+  if (Product.totalVotes === 25) {
+    displayResults();
+  } else {
   var randIndex = Math.floor(Math.random() * Product.allProduct.length);
   var secondProductIndex = Math.floor(Math.random() * Product.allProduct.length);
   var thirdProductIndex = Math.floor(Math.random() * Product.allProduct.length);
-  if (clicks<25) {
-//if images are the same, generate different image
-  while (randIndex === secondProductIndex || randIndex === thirdProductIndex || secondProductIndex === thirdProductIndex) {
+  //choose three random images and display
+  //if image previously shown, choose new image
+  while (priorImgsShown.includes(randIndex) ||
+    priorImgsShown.includes(secondProductIndex) ||
+    priorImgsShown.includes(thirdProductIndex) ||
+    randIndex === secondProductIndex ||
+    randIndex === thirdProductIndex || 
+    secondProductIndex === thirdProductIndex
+    ) {
     randIndex = Math.floor(Math.random() * Product.allProduct.length);
     secondProductIndex = Math.floor(Math.random() * Product.allProduct.length);
     thirdProductIndex = Math.floor(Math.random() * Product.allProduct.length);
   }
+    priorImgsShown[0] = randIndex;
+    priorImgsShown[1] = secondProductIndex;
+    priorImgsShown[2] = thirdProductIndex;
     product1 = Product.allProduct[randIndex];
     product2 = Product.allProduct[secondProductIndex];
     product3 = Product.allProduct[thirdProductIndex];
     img1.src = product1.filename;
     img2.src = product2.filename;
     img3.src = product3.filename;
-} else {
-    //remove event listeners and replace page with results
+    product1.shown++;
+    product2.shown++;
+    product3.shown++;
+  }
 }
-
+function displayResults() {
+  img1.remove();
+  img2.remove();
+  img3.remove();
+  var namesArray = [];
+  var votesArray = [];
+  for (var i = 0; i < Product.allProduct.length; i++) {
+    //add to the arrays
+    names.Array.push(Product.allProduct[i].name);
+    votesArray.push(Product.allProduct[i].votes);
+  }
 }
-
  
 // event listeners
 // where are we listening? the images
@@ -73,21 +94,21 @@ var img3 = document.getElementsByTagName('img')[2];
 // what are we listening for? click
 img1.addEventListener('click', function(e) {
   product1.votes++;
-  clicks++;
-  displayThreeNewProduct();
+  Product.totalVotes++;
+  displayNewProducts();
 });
 
 img2.addEventListener('click', function() {
   product2.votes++;
-  clicks++;
-  displayThreeNewProduct();
+  Product.totalVotes++;
+  displayNewProducts();
 });
 
 img3.addEventListener('click', function() {
   product3.votes++;
-  clicks++;
-  displayThreeNewProduct();
+  Product.totalVotes++;
+  displayNewProducts();
 });
 
-displayThreeNewProduct();
+displayNewProducts();
 console.log(Product.allProduct);
