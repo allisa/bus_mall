@@ -1,5 +1,8 @@
 'use strict';
 
+var product1, product2, product3;
+var clicks = 0;
+
 // constructor for Product
 function Product(name, filename) {
   this.name = name;
@@ -10,13 +13,12 @@ function Product(name, filename) {
 }
 Product.allProduct = [];
 
-var product1, product2, product3;
-
 
 //not sure what this code does
 //product[numProductDisplayed-numProductDisplayed] = new Product('img/bathroom.jpg');
 //product[numProductDisplayed-2] = new Product('img/boots.jpg');
 //product[numProductDisplayed-1] = new Product('img/bubblegum.jpg');
+
 new Product('meatball bubblegum','img/bubblegum.jpg');
 new Product('not rain boots','img/boots.jpg');
 new Product('bathroom stand','img/bathroom.jpg');
@@ -38,13 +40,12 @@ new Product('tentacle usb','img/usb.gif');
 new Product('regenerating watering can','img/water-can.jpg');
 new Product('undrinkable wine glass','img/wine-glass.jpg');
 
-
-
 //display three random images
 function displayThreeNewProduct() {
-    var randIndex = Math.floor(Math.random() * Product.allProduct.length);
-    var secondProductIndex = Math.floor(Math.random() * Product.allProduct.length);
-    var thirdProductIndex = Math.floor(Math.random() * Product.allProduct.length);
+  var randIndex = Math.floor(Math.random() * Product.allProduct.length);
+  var secondProductIndex = Math.floor(Math.random() * Product.allProduct.length);
+  var thirdProductIndex = Math.floor(Math.random() * Product.allProduct.length);
+  if (clicks<25) {
 //if images are the same, generate different image
   while (randIndex === secondProductIndex || randIndex === thirdProductIndex || secondProductIndex === thirdProductIndex) {
     randIndex = Math.floor(Math.random() * Product.allProduct.length);
@@ -57,7 +58,12 @@ function displayThreeNewProduct() {
     img1.src = product1.filename;
     img2.src = product2.filename;
     img3.src = product3.filename;
+} else {
+    //remove event listeners and replace page with results
 }
+
+}
+
  
 // event listeners
 // where are we listening? the images
@@ -67,17 +73,19 @@ var img3 = document.getElementsByTagName('img')[2];
 // what are we listening for? click
 img1.addEventListener('click', function(e) {
   product1.votes++;
+  clicks++;
   displayThreeNewProduct();
-
 });
 
 img2.addEventListener('click', function() {
   product2.votes++;
+  clicks++;
   displayThreeNewProduct();
 });
 
 img3.addEventListener('click', function() {
   product3.votes++;
+  clicks++;
   displayThreeNewProduct();
 });
 
