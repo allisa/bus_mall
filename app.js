@@ -14,6 +14,7 @@ function Product(name, filename) {
 }
 Product.allProduct = [];
 Product.totalVotes = 0;
+var chartColor = [];
 
 new Product('meatball bubblegum','img/bubblegum.jpg');
 new Product('not rain boots','img/boots.jpg');
@@ -36,12 +37,22 @@ new Product('tentacle usb','img/usb.gif');
 new Product('regenerating watering can','img/water-can.jpg');
 new Product('undrinkable wine glass','img/wine-glass.jpg');
 
+function random() {
+  return Math.floor(Math.random() * 255)}
+
+function randomColorGenerator() {
+  for (var i = 0; i < Product.allProduct.length; i++) {
+    chartColor.push(`rgba(${random()}, ${random()}, ${random()}, 0.4)`);
+  }
+  return chartColor;
+}
 
 //display three random images
 function displayNewProducts() {
   console.log('votes',Product.totalVotes);
   if (Product.totalVotes === 25) {
     displayResults();
+    displayChart();
   } else {
   var randIndex = Math.floor(Math.random() * Product.allProduct.length);
   var secondProductIndex = Math.floor(Math.random() * Product.allProduct.length);
@@ -97,6 +108,41 @@ function displayResults() {
     productLi.appendChild(productP3);
     ulEl.appendChild(productLi);
   }
+}
+function displayChart() {
+  var namesArray = [];
+  var votesArray = [];
+  for (var i = 0; i < Product.allProduct.length; i++) {
+    // also add numbers to the new array
+    namesArray.push(Product.allProduct[i].name);
+    votesArray.push(Product.allProduct[i].votes);
+    randomColorGenerator();
+ }
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: namesArray,
+      datasets: [{
+        label: '# of Votes',
+        data: votesArray, // these numbers seem important
+        backgroundColor: chartColor,
+        borderColor: 'rgb(0,0,0)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          ticks: {
+            beginAtZero:true,
+            suggestedMax: 10,
+            autoSkip: false
+          }
+        }]
+      }
+    }
+  });
 }
  
 // event listeners
