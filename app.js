@@ -170,4 +170,3 @@ img3.addEventListener('click', function() {
 });
 
 displayNewProducts();
-console.log(Product.allProduct);
