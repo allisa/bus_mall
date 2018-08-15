@@ -57,7 +57,6 @@ function randomColorGenerator() {
 function displayNewProducts() {
   if (Product.totalVotes >= 24) {
     displayResults();
-    // displayChart();
   
   } else {
   var randIndex = Math.floor(Math.random() * Product.allProduct.length);
@@ -94,26 +93,6 @@ function displayResults() {
   img1.remove();
   img2.remove();
   img3.remove();
-
-  // for (var i = 0; i < Product.allProduct.length; i++) {
-  //   var singleProd = Product.allProduct[i];
-  //   //add to the arrays
-  //   var productLi = document.createElement('li');
-  //   var productH3 = document.createElement('h3');
-  //   var productP1 = document.createElement('p');
-  //   var productP2 = document.createElement('p');
-  //   var productP3 = document.createElement('p');
-  //   productH3.textContent = singleProd.name;
-  //   productP1.textContent = `Votes: ${singleProd.votes}`;
-  //   productP2.textContent = `Times Shown: ${singleProd.shown}`;
-  //   productP3.textContent = `Percentage of votes to times shown ${((singleProd.votes / singleProd.shown) * 100).toFixed(2)}%`;
-  //   var ulEl = document.getElementById('results');
-  //   productLi.appendChild(productH3);
-  //   productLi.appendChild(productP1);
-  //   productLi.appendChild(productP2);
-  //   productLi.appendChild(productP3);
-  //   ulEl.appendChild(productLi);
-  // }
   displayChart();  
   //saving results to local storage
   localStorage.setItem('products', JSON.stringify(Product.allProduct));
@@ -127,7 +106,6 @@ function displayChart() {
     namesArray.push(Product.allProduct[i].name);
     votesArray.push(Product.allProduct[i].votes);
     timesShownArray.push(Product.allProduct[i].shown);
-
     randomColorGenerator();
  }
   var ctx = document.getElementById('myChart').getContext('2d');
