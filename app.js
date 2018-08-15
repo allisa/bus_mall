@@ -49,7 +49,6 @@ function randomColorGenerator() {
 
 //display three random images
 function displayNewProducts() {
-  console.log('votes',Product.totalVotes);
   if (Product.totalVotes === 25) {
     displayResults();
     displayChart();
@@ -112,10 +111,13 @@ function displayResults() {
 function displayChart() {
   var namesArray = [];
   var votesArray = [];
+  var timesShownArray = [];
   for (var i = 0; i < Product.allProduct.length; i++) {
     // also add numbers to the new array
     namesArray.push(Product.allProduct[i].name);
     votesArray.push(Product.allProduct[i].votes);
+    timesShownArray.push(Product.allProduct[i].shown);
+
     randomColorGenerator();
  }
   var ctx = document.getElementById('myChart').getContext('2d');
