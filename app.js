@@ -108,6 +108,7 @@ function displayChart() {
     timesShownArray.push(Product.allProduct[i].shown);
     randomColorGenerator();
  }
+ //votes chart
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'horizontalBar',
@@ -116,6 +117,32 @@ function displayChart() {
       datasets: [{
         label: '# of Votes',
         data: votesArray, // these numbers seem important
+        backgroundColor: chartColor,
+        borderColor: 'rgb(0,0,0)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          ticks: {
+            beginAtZero:true,
+            suggestedMax: 10,
+            autoSkip: false
+          }
+        }]
+      }
+    }
+  });
+  //times shown chart
+  var ctx2 = document.getElementById('myChart2').getContext('2d');
+  var myChart2 = new Chart(ctx2, {
+    type: 'horizontalBar',
+    data: {
+      labels: namesArray,
+      datasets: [{
+        label: '# of Times Shown',
+        data: timesShownArray, // these numbers seem important
         backgroundColor: chartColor,
         borderColor: 'rgb(0,0,0)',
         borderWidth: 1

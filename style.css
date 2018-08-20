@@ -1,9 +1,13 @@
 body {
-  margin: 0 auto;
-  background-color: #ddf7ff;
+  background-color: #e6e6e6;
+}
+header {
+  padding: 40px 0;
+  background-color: #1fbbeb;
+  border-bottom: 4px solid navy;
 }
 main {
-  margin: 30px;
+  margin: 30px auto;
 }
 .image-container {
   text-align: center;
@@ -40,5 +44,5 @@ p {
   text-align: center;
 }
 .chart {
-  margin: 30px;
+  margin: 40px;
 }

@@ -10,9 +10,11 @@
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
+  <header>
+      <h1>Bus Mall</h1>
+  </header>
   <main>
-    <h1>Bus Mall</h1>
-    <p>Click on an image to vote for the products you are most likely to buy:</p>
+    <p>Click on an image to vote for the products you are most likely to buy. See the results after 25 votes.</p>
     <div class="image-container">
       <img src="img/bubblegum.jpg" />
       <img src="img/boots.jpg" />
@@ -21,7 +23,10 @@
     <ul id="results">
     </ul>
     <div class="chart">
-      <canvas id="myChart" width="400" height="400"></canvas>
+      <canvas id="myChart" width=50%></canvas>
+    </div>
+    <div class="times-shown-chart">
+      <canvas id="myChart2" width=50%></canvas>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="app.js"></script>
